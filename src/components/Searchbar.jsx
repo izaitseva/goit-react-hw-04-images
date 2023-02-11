@@ -1,5 +1,6 @@
 import React from "react"
 import { ImSearch } from 'react-icons/im';
+import Notiflix from "notiflix";
 
 export class Searchbar extends React.Component {
 
@@ -17,7 +18,7 @@ export class Searchbar extends React.Component {
         e.preventDefault();
 
         if (this.state.photoName.trim() === '') {
-            alert('Type some letters');
+            Notiflix.Notify.info('Please type some letters');
             return; 
         }
 
