@@ -34,7 +34,7 @@ export default class App extends Component {
     const MAIN_URL = `https://pixabay.com/api/`;
     const KEY = `12755760-d2e38158efcb067b906f81c79`;
 
-    if (prevState.photoName !== this.state.photoName) {
+    if (prevState.photoName !== this.state.photoName || prevState.page !== this.state.page) {
       console.log("change name");
 
       fetch(`${MAIN_URL}?q=${this.state.photoName}&page=1&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`)
@@ -44,13 +44,16 @@ export default class App extends Component {
     }
   }
 
+  loadMore = () => {
+
+  }
   render() {
 
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSearchBar} />
         <ImageGallery loading={this.state.loading} photos={this.state.photos} />
-        <Button page={this.state.page} />
+        <Button page={this.state.page} loadMore={this.LoadMore} />
 
       </div>
     )

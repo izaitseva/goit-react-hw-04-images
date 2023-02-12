@@ -12,7 +12,6 @@ export class Modal extends React.Component {
     }
 
     componentDidMount() {
-
         document.addEventListener('keydown', this.handleKeydownPressed)
     }
 

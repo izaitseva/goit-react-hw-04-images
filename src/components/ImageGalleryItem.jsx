@@ -1,5 +1,6 @@
 import React from "react"
 import { Modal } from "./Modal"
+import PropTypes from 'prop-types';
 
 export default class ImageGalleryItem extends React.Component {
 
@@ -18,6 +19,7 @@ export default class ImageGalleryItem extends React.Component {
     render() {
 
         const { webformatURL, largeImageURL } = this.props
+
         return (
             <li className="ImageGalleryItem" >
                 <img className="ImageGalleryItem-image" 
@@ -29,4 +31,10 @@ export default class ImageGalleryItem extends React.Component {
             </li>
         )
     }
+}
+
+ImageGalleryItem.propTypes = {
+    id: PropTypes.number,
+    largeImageURL: PropTypes.string,
+    webformatURL: PropTypes.string
 }

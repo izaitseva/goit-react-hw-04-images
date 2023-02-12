@@ -1,6 +1,7 @@
 import React from "react";
 import { Loader } from "./Loader";
 import ImageGalleryItem from "./ImageGalleryItem";
+import PropTypes from 'prop-types';
 
 export default class ImageGallery extends React.Component {
 
@@ -20,4 +21,9 @@ export default class ImageGallery extends React.Component {
             </ul>
         )
     }
+}
+
+ImageGallery.propTypes = {
+    loading: PropTypes.bool,
+    photos: PropTypes.arrayOf(PropTypes.object)
 }

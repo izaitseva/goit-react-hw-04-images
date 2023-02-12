@@ -1,19 +1,17 @@
 import { Component } from "react"
+import PropTypes from 'prop-types';
 
 export class Button extends Component {
 
-
-    loadMore = () => {
-        this.setState(page => ({
-            page: this.props.page + 1,
-        }))
-        console.log("check load more")
-    }
-
-
     render() {
+
         return (
-            <button onClick={this.loadMore} page={this.props.page} className="Button">Load more</button>
+            <button onClick={this.props.loadMore} className="Button">Load more</button>
         )
     }
+}
+
+
+Button.propTypes = {
+    onClick: PropTypes.func,
 }

@@ -1,11 +1,14 @@
 import React from "react"
 import { ImSearch } from 'react-icons/im';
 import Notiflix from "notiflix";
-
+import PropTypes from 'prop-types';
 export class Searchbar extends React.Component {
 
     state = {
-        photoName: ''
+        photoName: '',
+        photos: [],
+        loading: false,
+        page: 1,
     }
 
     onChange = e => {
@@ -24,9 +27,17 @@ export class Searchbar extends React.Component {
 
         this.props.onSubmit(this.state.photoName);
         this.setState({
-            photoName: ''
+            photoName: '',
+            page:1,
+            photos: []
         })
+
+        // this.setState({
+        //     page:1,
+        //     photos: []
+        // })
     }
+    
     render() {
 
         return (
@@ -50,4 +61,8 @@ export class Searchbar extends React.Component {
             </header>
         )
     }
+}
+
+Searchbar.propTypes = {
+    onSubmit: PropTypes.func,
 }
