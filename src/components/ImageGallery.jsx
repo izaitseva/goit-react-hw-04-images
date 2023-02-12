@@ -1,24 +1,22 @@
 import React from "react";
-// import { Grid } from "react-loader-spinner";
+import { Loader } from "./Loader";
 import ImageGalleryItem from "./ImageGalleryItem";
-
-// import { Loader } from "./Loader";
 
 export default class ImageGallery extends React.Component {
 
     render() {
 
-        const { photos } = this.props;
+        const { photos, loading } = this.props;
+        const hits = photos?.hits ?? [];
 
         return (
-            <ul className="gallery">
-                {/* {loading && <Grid />} */}
-
-                {/* {
-                    photos.hits.map(el => (
-                        <ImageGalleryItem id={el.id} webformatURL={el.webformatURL} largeImageURL={el.largeImageURL} />
+            <ul className="ImageGallery">
+                {loading && <Loader />}
+                {
+                    hits.map(el => (
+                        <ImageGalleryItem key={el.id} id={el.id} webformatURL={el.webformatURL} largeImageURL={el.largeImageURL} />
                     ))
-                } */}
+                }
             </ul>
         )
     }

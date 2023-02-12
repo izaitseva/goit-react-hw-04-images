@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Button } from "./Button";
 import ImageGallery from "./ImageGallery";
 import { Searchbar } from "./Searchbar";
-
+import '../styles.css';
 // import { Modal } from "./Modal";
 
 const KEY = `12755760-d2e38158efcb067b906f81c79`;
@@ -15,7 +15,8 @@ export default class App extends Component {
   state = {
     photoName: '',
     photos: [],
-    loading: false
+    loading: false,
+    page: 1
   }
 
   componentDidMount() {
@@ -46,19 +47,10 @@ export default class App extends Component {
   render() {
 
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101'
-        }}
-      >
+      <div className="App">
         <Searchbar onSubmit={this.handleSearchBar} />
         <ImageGallery loading={this.state.loading} photos={this.state.photos} />
-        <Button />
+        <Button page={this.state.page} />
 
       </div>
     )

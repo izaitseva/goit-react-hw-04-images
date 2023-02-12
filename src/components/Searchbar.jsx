@@ -30,15 +30,15 @@ export class Searchbar extends React.Component {
     render() {
 
         return (
-            <header className="searchbar" >
-                <form onSubmit={this.onSubmit} className="form">
-                    <button type="submit" className="button">
+            <header className="Searchbar" >
+                <form onSubmit={this.onSubmit} className="SearchForm">
+                    <button type="submit" className="SearchForm-button">
                         <ImSearch />
-                        <span className="button-label">Search</span>
+                        <span className="SearchForm-button-label">Search</span>
                     </button>
 
                     <input
-                        className="input"
+                        className="SearchForm-input"
                         type="text"
                         autoComplete="off"
                         autoFocus

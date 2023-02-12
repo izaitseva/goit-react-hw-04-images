@@ -1,20 +1,19 @@
-import * as basicLightbox from 'basiclightbox'
+// import * as basicLightbox from 'basiclightbox'
+// import { ImSearch } from 'react-icons/im';
 
-export const Modal = () => {
-    return (
-        <template>
-            <div class="overlay">
-                <div class="modal">
-                    <img src="" alt="" />
-                    <p>Check modal</p>
-                </div>
-            </div>
-        </template>
-    )
-}
+// export const Modal = ({ url, handleclose, showModal }) => {
 
-const instance = basicLightbox.create(
-	document.querySelector('template')
-)
-
-instance.show()
+//     return (
+//         <template>
+//             <div className="Overlay">
+//                 <div className="Modal">
+//                     <img src={url} alt="" onClick={showModal} />
+//                     <p>Check modal</p>
+//                     <button>
+//                         <ImSearch />
+//                     </button>
+//                 </div>
+//             </div>
+//         </template>
+//     )
+// }
