@@ -1,29 +1,31 @@
 import React from "react"
-// import { Modal } from "./Modal"
+import { Modal } from "./Modal"
 
 export default class ImageGalleryItem extends React.Component {
 
     state = {
-        id: '',
-        webformatURL: '',
-        largeImageURL: '',
+        isModalOpen: false
     }
 
-    // showModal = () => {
-    //     this.setState({ show: true });
-    // };
+    showModal = () => {
+        this.setState({ isModalOpen: true });
+    };
 
-    // hideModal = () => {
-    //     this.setState({ show: false });
-    // };
+    hideModal = () => {
+        this.setState({ isModalOpen: false });
+    };
 
     render() {
 
-        const { webformatURL } = this.props
+        const { webformatURL, largeImageURL } = this.props
         return (
             <li className="ImageGalleryItem" >
-                <img className="ImageGalleryItem-image" src={webformatURL} alt="picture1" />
-                {/* <Modal showModal={this.showModal} /> */}
+                <img className="ImageGalleryItem-image" 
+                src={webformatURL} 
+                alt="picture1"
+                onClick={this.showModal} />
+                {this.state.isModalOpen &&
+                <Modal largeImg={largeImageURL} hideModal={this.hideModal} />}
             </li>
         )
     }

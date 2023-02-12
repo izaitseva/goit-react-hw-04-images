@@ -1,19 +1,29 @@
-// import * as basicLightbox from 'basiclightbox'
-// import { ImSearch } from 'react-icons/im';
+import React from 'react'
+export class Modal extends React.Component {
 
-// export const Modal = ({ url, handleclose, showModal }) => {
+    onClickOverlay = () => {
+        this.props.hideModal()
+    }
 
-//     return (
-//         <template>
-//             <div className="Overlay">
-//                 <div className="Modal">
-//                     <img src={url} alt="" onClick={showModal} />
-//                     <p>Check modal</p>
-//                     <button>
-//                         <ImSearch />
-//                     </button>
-//                 </div>
-//             </div>
-//         </template>
-//     )
-// }
+    handleKeydownPressed = (e) => {
+        if (e.key === 'Escape') {
+            this.props.hideModal()
+        }
+    }
+
+    componentDidMount() {
+
+        document.addEventListener('keydown', this.handleKeydownPressed)
+    }
+
+    render() {
+        return (
+            <div className="Overlay" onClick={this.onClickOverlay} >
+                <div className="Modal">
+                    <img src={this.props.largeImg} alt="" />
+                    <p>Check modal</p>
+                </div>
+            </div>
+        )
+    }
+}
