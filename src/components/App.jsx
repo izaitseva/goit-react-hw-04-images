@@ -20,7 +20,6 @@ export default class App extends Component {
     error: null
   }
 
-  
   handleSearchBar = photoName => {
     this.setState({
       page: 1,
