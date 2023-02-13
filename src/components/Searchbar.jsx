@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 export class Searchbar extends React.Component {
 
     state = {
-        photoName: '',
-        photos: [],
-        loading: false,
-        page: 1,
+        photoName: ''
     }
 
     onChange = e => {
@@ -22,22 +19,12 @@ export class Searchbar extends React.Component {
 
         if (this.state.photoName.trim() === '') {
             Notiflix.Notify.info('Please type some letters');
-            return; 
+            return;
         }
 
         this.props.onSubmit(this.state.photoName);
-        this.setState({
-            photoName: '',
-            page:1,
-            photos: []
-        })
-
-        // this.setState({
-        //     page:1,
-        //     photos: []
-        // })
     }
-    
+
     render() {
 
         return (

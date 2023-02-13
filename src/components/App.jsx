@@ -7,8 +7,7 @@ import '../styles.css';
 
 const KEY = `12755760-d2e38158efcb067b906f81c79`;
 // const MAIN_URL = `https://pixabay.com/api/`;
-const URL = `https://pixabay.com/api/?q=cat&page=1&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`;
-
+const URL = `https://pixabay.com/api/?key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`;
 
 export default class App extends Component {
 
@@ -16,13 +15,16 @@ export default class App extends Component {
     photoName: '',
     photos: [],
     loading: false,
-    page: 1
+    page: 1,
+    isVisibleLoadMore: true
   }
 
   componentDidMount() {
     fetch(URL)
       .then(response => response.json())
-      .then(photos => this.setState({ photos: photos?.hits ?? [] }));
+      .then(photos => this.setState({
+        photos: photos?.hits ?? []
+      }));
   }
 
   handleSearchBar = photoName => {
@@ -43,25 +45,20 @@ export default class App extends Component {
       fetch(`${MAIN_URL}?q=${this.state.photoName}&page=${this.state.page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`)
         .then(res => res.json())
         .then(photos => {
-          this.setState(prevState => ({
-            photos: this.state.page > 1 
-              ? prevState.photos.concat(photos?.hits ?? [])
-              : photos?.hits ?? []
-          }))
-          
-          // this.setState(prevState => {
-          //   let photosList = photos?.hits ?? [];
+          this.setState(prevState => {
 
-          //   if (this.state.page > 1) {
-          //     return {
-          //       photos: prevState.photos.concat(photosList)
-          //     }
-          //   }
+            const photosList = this.state.page > 1
+            ? prevState.photos.concat(photos?.hits ?? [])
+            : photos?.hits ?? [] 
 
-          //   return {
-          //     photos: photosList
-          //   }
-          // })
+            console.log(photos.hits, photos.totalHits );
+            console.log();
+
+            return {
+              photos: photosList,
+              isVisibleLoadMore: !(photosList.length >= photos.totalHits)         }
+          })
+
         })
         .finally(() => this.setState({ loading: false }));
     }
@@ -79,7 +76,9 @@ export default class App extends Component {
       <div className="App">
         <Searchbar onSubmit={this.handleSearchBar} />
         <ImageGallery loading={this.state.loading} photos={this.state.photos} />
-        <Button page={this.state.page} loadMore={this.loadMore} />
+        {this.state.isVisibleLoadMore && (
+          <Button page={this.state.page} loadMore={this.loadMore} />
+        )}
 
       </div>
     )
