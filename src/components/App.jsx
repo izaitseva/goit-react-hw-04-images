@@ -2,8 +2,8 @@ import { Component } from "react";
 import { Button } from "./Button";
 import ImageGallery from "./ImageGallery";
 import { Searchbar } from "./Searchbar";
+import { Loader } from "./Loader";
 import '../styles.css';
-// import { Modal } from "./Modal";
 
 const KEY = `12755760-d2e38158efcb067b906f81c79`;
 // const MAIN_URL = `https://pixabay.com/api/`;
@@ -16,7 +16,7 @@ export default class App extends Component {
     photos: [],
     loading: false,
     page: 1,
-    isVisibleLoadMore: true
+    isVisibleLoadMore: false
   }
 
   componentDidMount() {
@@ -30,7 +30,8 @@ export default class App extends Component {
   handleSearchBar = photoName => {
     this.setState({
       page: 1,
-      photoName: photoName
+      photoName: photoName,
+      photos: []
     });
   }
 
@@ -40,23 +41,18 @@ export default class App extends Component {
     const KEY = `12755760-d2e38158efcb067b906f81c79`;
 
     if (prevState.photoName !== this.state.photoName || prevState.page !== this.state.page) {
-      console.log("change name");
 
       fetch(`${MAIN_URL}?q=${this.state.photoName}&page=${this.state.page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`)
         .then(res => res.json())
         .then(photos => {
           this.setState(prevState => {
 
-            const photosList = this.state.page > 1
-            ? prevState.photos.concat(photos?.hits ?? [])
-            : photos?.hits ?? [] 
-
-            console.log(photos.hits, photos.totalHits );
-            console.log();
+            const photosList = prevState.photos.concat(photos?.hits ?? [])
 
             return {
               photos: photosList,
-              isVisibleLoadMore: !(photosList.length >= photos.totalHits)         }
+              isVisibleLoadMore: !(photosList.length >= photos.totalHits)
+            }
           })
 
         })
@@ -75,7 +71,8 @@ export default class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSearchBar} />
-        <ImageGallery loading={this.state.loading} photos={this.state.photos} />
+        {this.state.loading && <Loader />}
+        <ImageGallery photos={this.state.photos} />
         {this.state.isVisibleLoadMore && (
           <Button page={this.state.page} loadMore={this.loadMore} />
         )}

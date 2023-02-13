@@ -13,5 +13,5 @@ export class Button extends Component {
 
 
 Button.propTypes = {
-    onClick: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
 }

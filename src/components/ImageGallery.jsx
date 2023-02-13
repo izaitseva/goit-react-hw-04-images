@@ -1,5 +1,5 @@
 import React from "react";
-import { Loader } from "./Loader";
+
 import ImageGalleryItem from "./ImageGalleryItem";
 import PropTypes from 'prop-types';
 
@@ -7,11 +7,10 @@ export default class ImageGallery extends React.Component {
 
     render() {
 
-        const { photos, loading } = this.props;
+        const { photos } = this.props;
 
         return (
             <ul className="ImageGallery">
-                {loading && <Loader />}
                 {
                     photos.map(el => (
                         <ImageGalleryItem key={el.id} id={el.id} webformatURL={el.webformatURL} largeImageURL={el.largeImageURL} />
@@ -23,6 +22,7 @@ export default class ImageGallery extends React.Component {
 }
 
 ImageGallery.propTypes = {
-    loading: PropTypes.bool,
-    photos: PropTypes.array
+    photos: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired
+    })).isRequired
 }

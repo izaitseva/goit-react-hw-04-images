@@ -51,5 +51,5 @@ export class Searchbar extends React.Component {
 }
 
 Searchbar.propTypes = {
-    onSubmit: PropTypes.func,
+    onSubmit: PropTypes.func.isRequired,
 }

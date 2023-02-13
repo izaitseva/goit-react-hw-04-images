@@ -34,7 +34,5 @@ export default class ImageGalleryItem extends React.Component {
 }
 
 ImageGalleryItem.propTypes = {
-    id: PropTypes.number,
-    largeImageURL: PropTypes.string,
-    webformatURL: PropTypes.string
+    webformatURL: PropTypes.string.isRequired
 }
