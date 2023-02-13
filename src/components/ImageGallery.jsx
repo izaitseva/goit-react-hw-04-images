@@ -8,13 +8,12 @@ export default class ImageGallery extends React.Component {
     render() {
 
         const { photos, loading } = this.props;
-        const hits = photos?.hits ?? [];
 
         return (
             <ul className="ImageGallery">
                 {loading && <Loader />}
                 {
-                    hits.map(el => (
+                    photos.map(el => (
                         <ImageGalleryItem key={el.id} id={el.id} webformatURL={el.webformatURL} largeImageURL={el.largeImageURL} />
                     ))
                 }
@@ -25,5 +24,5 @@ export default class ImageGallery extends React.Component {
 
 ImageGallery.propTypes = {
     loading: PropTypes.bool,
-    photos: PropTypes.arrayOf(PropTypes.object)
+    photos: PropTypes.array
 }

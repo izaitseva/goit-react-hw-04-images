@@ -22,11 +22,14 @@ export default class App extends Component {
   componentDidMount() {
     fetch(URL)
       .then(response => response.json())
-      .then(photos => this.setState({ photos }));
+      .then(photos => this.setState({ photos: photos?.hits ?? [] }));
   }
 
   handleSearchBar = photoName => {
-    this.setState({ photoName });
+    this.setState({
+      page: 1,
+      photoName: photoName
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,23 +40,40 @@ export default class App extends Component {
     if (prevState.photoName !== this.state.photoName || prevState.page !== this.state.page) {
       console.log("change name");
 
-      fetch(`${MAIN_URL}?q=${this.state.photoName}&page=1&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`)
+      fetch(`${MAIN_URL}?q=${this.state.photoName}&page=${this.state.page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`)
         .then(res => res.json())
-        .then(photos => this.setState({ photos }))
+        .then(photos => {
+          this.setState(prevState => {
+            let photosList = photos?.hits ?? [];
+
+            if (this.state.page > 1) {
+              return {
+                photos: prevState.photos.concat(photosList)
+              }
+            }
+
+            return {
+              photos: photosList
+            }
+          })
+        })
         .finally(() => this.setState({ loading: false }));
     }
   }
 
   loadMore = () => {
-
+    this.setState((prevState) => ({
+      page: prevState.page + 1
+    }));
   }
+
   render() {
 
     return (
       <div className="App">
         <Searchbar onSubmit={this.handleSearchBar} />
         <ImageGallery loading={this.state.loading} photos={this.state.photos} />
-        <Button page={this.state.page} loadMore={this.LoadMore} />
+        <Button page={this.state.page} loadMore={this.loadMore} />
 
       </div>
     )
