@@ -6,8 +6,6 @@ import { Loader } from "./Loader";
 import '../styles.css';
 
 const KEY = `12755760-d2e38158efcb067b906f81c79`;
-// const MAIN_URL = `https://pixabay.com/api/`;
-const URL = `https://pixabay.com/api/?key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`;
 
 export default class App extends Component {
 
