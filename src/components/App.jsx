@@ -43,19 +43,25 @@ export default class App extends Component {
       fetch(`${MAIN_URL}?q=${this.state.photoName}&page=${this.state.page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`)
         .then(res => res.json())
         .then(photos => {
-          this.setState(prevState => {
-            let photosList = photos?.hits ?? [];
+          this.setState(prevState => ({
+            photos: this.state.page > 1 
+              ? prevState.photos.concat(photos?.hits ?? [])
+              : photos?.hits ?? []
+          }))
+          
+          // this.setState(prevState => {
+          //   let photosList = photos?.hits ?? [];
 
-            if (this.state.page > 1) {
-              return {
-                photos: prevState.photos.concat(photosList)
-              }
-            }
+          //   if (this.state.page > 1) {
+          //     return {
+          //       photos: prevState.photos.concat(photosList)
+          //     }
+          //   }
 
-            return {
-              photos: photosList
-            }
-          })
+          //   return {
+          //     photos: photosList
+          //   }
+          // })
         })
         .finally(() => this.setState({ loading: false }));
     }
