@@ -16,17 +16,11 @@ export default class App extends Component {
     photos: [],
     loading: false,
     page: 1,
-    isVisibleLoadMore: false
+    isVisibleLoadMore: false,
+    error: null
   }
 
-  componentDidMount() {
-    fetch(URL)
-      .then(response => response.json())
-      .then(photos => this.setState({
-        photos: photos?.hits ?? []
-      }));
-  }
-
+  
   handleSearchBar = photoName => {
     this.setState({
       page: 1,
@@ -50,12 +44,14 @@ export default class App extends Component {
             const photosList = prevState.photos.concat(photos?.hits ?? [])
 
             return {
+              error: null,
               photos: photosList,
               isVisibleLoadMore: !(photosList.length >= photos.totalHits)
             }
           })
 
         })
+        .catch(error => this.setState({ error }))
         .finally(() => this.setState({ loading: false }));
     }
   }
@@ -72,6 +68,7 @@ export default class App extends Component {
       <div className="App">
         <Searchbar onSubmit={this.handleSearchBar} />
         {this.state.loading && <Loader />}
+        {this.state.error && <p>Something went wrong. {this.state.photoName} doesn't exist </p>}
         <ImageGallery photos={this.state.photos} />
         {this.state.isVisibleLoadMore && (
           <Button page={this.state.page} loadMore={this.loadMore} />
