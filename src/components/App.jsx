@@ -5,7 +5,6 @@ import { Searchbar } from "./Searchbar";
 import { Loader } from "./Loader";
 import '../styles.css';
 
-const KEY = `12755760-d2e38158efcb067b906f81c79`;
 
 export default class App extends Component {
 
