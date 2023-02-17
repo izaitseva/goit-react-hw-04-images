@@ -1,39 +1,35 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types';
-export class Modal extends React.Component {
+export default function Modal({ hideModal, largeImg }) {
 
-    onClickOverlay = (e) => {
+    const onClickOverlay = (e) => {
         if (e.currentTarget !== e.target) return;
-
-        this.props.hideModal()
+        hideModal()
     }
 
-    handleKeydownPressed = (e) => {
+    const handleKeydownPressed = useCallback(e => {
+        console.log('hey');
         if (e.key === 'Escape') {
-            this.props.hideModal()
+            hideModal()
         }
-    }
+    })
 
-    componentDidMount() {
-        document.addEventListener('keydown', this.handleKeydownPressed)
-    }
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeydownPressed)
+        return () => {
+            document.removeEventListener('keydown', handleKeydownPressed)
+        }
+    });
 
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.handleKeydownPressed)
-    }
-
-    render() {
-        return (
-            <div className="Overlay" onClick={this.onClickOverlay} >
-                <div className="Modal">
-                    <img src={this.props.largeImg} alt="" />
-                    <p>Check modal</p>
-                </div>
+    return (
+        <div className="Overlay" onClick={onClickOverlay} >
+            <div className="Modal">
+                <img src={largeImg} alt="" />
+                <p>Check modal</p>
             </div>
-        )
-    }
+        </div>
+    )
 }
-
 
 Modal.propTypes = {
     hideModal: PropTypes.func.isRequired,
