@@ -8,7 +8,6 @@ export default function Modal({ hideModal, largeImg }) {
     }
 
     const handleKeydownPressed = (e) => {
-        console.log('hey');
         if (e.key === 'Escape') {
             hideModal()
         }

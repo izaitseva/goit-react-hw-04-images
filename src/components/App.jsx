@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Button } from "./Button";
+import Button from "./Button";
 import ImageGallery from "./ImageGallery";
 import Searchbar from "./Searchbar";
 import { Loader } from "./Loader";

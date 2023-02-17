@@ -1,17 +1,14 @@
-import { Component } from "react"
 import PropTypes from 'prop-types';
 
-export class Button extends Component {
+export default function Button( {loadMore}) {
 
-    render() {
 
         return (
-            <button onClick={this.props.loadMore} className="Button">Load more</button>
+            <button onClick={loadMore} className="Button">Load more</button>
         )
     }
-}
 
 
 Button.propTypes = {
-    onClick: PropTypes.func.isRequired,
+    loadMore: PropTypes.func.isRequired,
 }

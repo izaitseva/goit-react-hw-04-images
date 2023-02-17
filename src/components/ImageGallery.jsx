@@ -3,11 +3,7 @@ import React from "react";
 import ImageGalleryItem from "./ImageGalleryItem";
 import PropTypes from 'prop-types';
 
-export default class ImageGallery extends React.Component {
-
-    render() {
-
-        const { photos } = this.props;
+export default function ImageGallery({ photos }) {
 
         return (
             <ul className="ImageGallery">
@@ -19,7 +15,6 @@ export default class ImageGallery extends React.Component {
             </ul>
         )
     }
-}
 
 ImageGallery.propTypes = {
     photos: PropTypes.arrayOf(PropTypes.shape({
