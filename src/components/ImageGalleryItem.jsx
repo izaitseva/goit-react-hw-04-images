@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 
 export default function ImageGalleryItem({ webformatURL, largeImageURL }) {
 
-    const [isModalOpen, setModal] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     const showModal = () => {
-        this.setState({ isModalOpen: true });
+        setIsOpen(true);
     };
 
     const hideModal = () => {
-        this.setState({ isModalOpen: false });
+        setIsOpen(false);
     };
 
     return (
@@ -19,9 +19,9 @@ export default function ImageGalleryItem({ webformatURL, largeImageURL }) {
             <img className="ImageGalleryItem-image"
                 src={webformatURL}
                 alt="picture1"
-                onClick={this.showModal} />
-            {this.state.isModalOpen &&
-                <Modal largeImg={largeImageURL} hideModal={this.hideModal} />}
+                onClick={showModal} />
+            {isOpen &&
+                <Modal largeImg={largeImageURL} hideModal={hideModal} />}
         </li>
     )
 }
