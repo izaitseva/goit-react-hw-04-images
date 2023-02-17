@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types';
 export default function Modal({ hideModal, largeImg }) {
 
@@ -7,19 +7,19 @@ export default function Modal({ hideModal, largeImg }) {
         hideModal()
     }
 
-    const handleKeydownPressed = useCallback(e => {
+    const handleKeydownPressed = (e) => {
         console.log('hey');
         if (e.key === 'Escape') {
             hideModal()
         }
-    })
+    }
 
     useEffect(() => {
         document.addEventListener('keydown', handleKeydownPressed)
         return () => {
             document.removeEventListener('keydown', handleKeydownPressed)
         }
-    });
+    }, []);
 
     return (
         <div className="Overlay" onClick={onClickOverlay} >
