@@ -1,4 +1,4 @@
-import { Component, useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./Button";
 import ImageGallery from "./ImageGallery";
 import Searchbar from "./Searchbar";
@@ -15,45 +15,32 @@ export default function App() {
   const [isVisibleLoadMore, setIsVisibleLoadMore] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSearchBar = photoName => {
+  const MAIN_URL = `https://pixabay.com/api/`;
+  const KEY = `12755760-d2e38158efcb067b906f81c79`;
+  const URL = `${MAIN_URL}?q=${photoName}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`
 
+  const handleSearchBar = photoName => {
     setPage(1);
     setPhotoName(photoName);
     setPhotos([]);
-
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  useEffect(() => {
+    setLoading(true);
 
-    const MAIN_URL = `https://pixabay.com/api/`;
-    const KEY = `12755760-d2e38158efcb067b906f81c79`;
+    fetch(URL)
+      .then((res) => res.json())
+      .then((photos) => {
+        setPhotos((prevPhotos) => [...prevPhotos, ...photos.hits]);
+        setIsVisibleLoadMore(!(photos.length >= photos.totalHits || photoName === ''));
+        setError(null);
+      })
+      .catch((error) => setError(error))
+      .finally(() => setLoading(false));
+  }, [URL, photoName, page]);
 
-    if (prevState.photoName !== this.state.photoName || prevState.page !== this.state.page) {
-
-      fetch(`${MAIN_URL}?q=${this.state.photoName}&page=${this.state.page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`)
-        .then(res => res.json())
-        .then(photos => {
-          this.setState(prevState => {
-
-            const photosList = prevState.photos.concat(photos?.hits ?? [])
-
-            return {
-              error: null,
-              photos: photosList,
-              isVisibleLoadMore: !(photosList.length >= photos.totalHits)
-            }
-          })
-
-        })
-        .catch(error => this.setState({ error }))
-        .finally(() => this.setState({ loading: false }));
-    }
-  }
-
-  loadMore = () => {
-    this.setState((prevState) => ({
-      page: prevState.page + 1
-    }));
+  const loadMore = () => {
+    setPage((prevPage) => prevPage + 1);
   }
 
   return (
