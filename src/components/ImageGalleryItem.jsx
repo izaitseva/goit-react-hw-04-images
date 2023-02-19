@@ -27,5 +27,6 @@ export default function ImageGalleryItem({ webformatURL, largeImageURL }) {
 }
 
 ImageGalleryItem.propTypes = {
-    webformatURL: PropTypes.string.isRequired
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
 }
