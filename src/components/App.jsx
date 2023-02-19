@@ -50,7 +50,7 @@ export default function App() {
       {error && <p>Something went wrong. {photoName} doesn't exist </p>}
       <ImageGallery photos={photos} />
       {isVisibleLoadMore && (
-        <Button page={page} loadMore={loadMore} />
+        <Button loadMore={loadMore} />
       )}
 
     </div>
