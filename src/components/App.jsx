@@ -26,6 +26,11 @@ export default function App() {
   }
 
   useEffect(() => {
+
+    if(photoName === '') {
+      return
+    }
+
     setLoading(true);
 
     fetch(URL)
@@ -52,7 +57,6 @@ export default function App() {
       {isVisibleLoadMore && (
         <Button loadMore={loadMore} />
       )}
-
     </div>
   )
 }

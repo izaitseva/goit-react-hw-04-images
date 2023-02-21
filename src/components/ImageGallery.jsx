@@ -8,7 +8,7 @@ export default function ImageGallery({ photos }) {
             <ul className="ImageGallery">
                 {
                     photos.map(el => (
-                        <ImageGalleryItem key={el.webformatURL} id={el.id} webformatURL={el.webformatURL} largeImageURL={el.largeImageURL} />
+                        <ImageGalleryItem key={el.id} webformatURL={el.webformatURL} largeImageURL={el.largeImageURL} />
                     ))
                 }
             </ul>
